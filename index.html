@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Communication Style Challenge</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#07111f,#0f2d52,#102d4a);
+color:white;
+min-height:100vh;
+overflow-x:hidden;
+padding:30px 0;
+}
+
+.container{
+width:92%;
+max-width:1150px;
+margin:auto;
+}
+
+.glass{
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.1);
+backdrop-filter:blur(12px);
+border-radius:28px;
+padding:35px;
+box-shadow:0 10px 40px rgba(0,0,0,.35);
+}
+
+.center{
+text-align:center;
+}
+
+.logo{
+font-size:38px;
+font-weight:700;
+color:#00c3ff;
+margin-bottom:20px;
+}
+
+.hero h1{
+font-size:54px;
+margin-bottom:20px;
+}
+
+.hero p{
+line-height:1.9;
+opacity:.9;
+max-width:800px;
+margin:auto;
+font-size:18px;
+}
+
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-top:40px;
+}
+
+.feature{
+background:rgba(255,255,255,.05);
+padding:22px;
+border-radius:18px;
+}
+
+.feature h3{
+margin-bottom:10px;
+}
+
+.start-btn{
+margin-top:40px;
+padding:18px 36px;
+font-size:18px;
+font-weight:700;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#00b4ff,#00ffd0);
+cursor:pointer;
+transition:.3s;
+}
+
+.start-btn:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 30px rgba(0,180,255,.4);
+}
+
+.quiz-screen,
+.result-screen{
+display:none;
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+flex-wrap:wrap;
+margin-bottom:25px;
+}
+
+.progress{
+width:100%;
+height:14px;
+background:rgba(255,255,255,.1);
+border-radius:100px;
+overflow:hidden;
+margin-top:10px;
+}
+
+.fill{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#00b4ff,#00ffd0);
+transition:.4s;
+}
+
+.stats{
+display:flex;
+gap:12px;
+}
+
+.pill{
+background:#00b4ff;
+color:#00152a;
+padding:12px 18px;
+border-radius:14px;
+font-weight:700;
+}
+
+.question{
+font-size:30px;
+line-height:1.8;
+margin:35px 0;
+font-weight:600;
+}
+
+.answers{
+display:grid;
+gap:18px;
+}
+
+.answer{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
+padding:24px;
+border-radius:18px;
+color:white;
+font-size:16px;
+text-align:left;
+cursor:pointer;
+transition:.3s;
+}
+
+.answer:hover{
+background:rgba(0,180,255,.18);
+transform:translateY(-2px);
+border-color:#00b4ff;
+}
+
+.badge{
+position:fixed;
+right:25px;
+bottom:25px;
+background:linear-gradient(135deg,#FFD700,#FFB800);
+color:#00152a;
+padding:24px;
+border-radius:22px;
+font-weight:700;
+display:none;
+box-shadow:0 15px 40px rgba(255,215,0,.45);
+z-index:999;
+animation:pop .5s ease;
+}
+
+@keyframes pop{
+from{
+transform:scale(.4);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+.result-title{
+text-align:center;
+font-size:50px;
+margin-bottom:15px;
+}
+
+.dominant{
+text-align:center;
+font-size:28px;
+color:#00ffd0;
+font-weight:700;
+margin-bottom:30px;
+}
+
+.score-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:18px;
+margin-top:30px;
+}
+
+.score-card{
+background:rgba(255,255,255,.05);
+padding:22px;
+border-radius:18px;
+text-align:center;
+}
+
+.score-card h2{
+font-size:42px;
+margin-top:10px;
+color:#00ffd0;
+}
+
+.analysis{
+margin-top:40px;
+background:rgba(0,180,255,.08);
+padding:30px;
+border-radius:22px;
+line-height:1.9;
+}
+
+.analysis h2{
+margin-bottom:18px;
+}
+
+.tips{
+display:grid;
+gap:15px;
+margin-top:20px;
+}
+
+.tip{
+background:rgba(255,255,255,.05);
+padding:18px;
+border-radius:16px;
+}
+
+footer{
+margin-top:40px;
+text-align:center;
+opacity:.7;
+font-size:14px;
+}
+
+canvas{
+margin-top:30px;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:36px;
+}
+
+.question{
+font-size:22px;
+}
+
+.result-title{
+font-size:34px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="badge" id="badge">
+🏆 Achievement Unlocked!<br><br>
+Communication Explorer Badge
+</div>
+
+<div class="container">
+
+<div class="glass hero center" id="intro">
+
+<div class="logo">
+ATD-self-assessment-
+</div>
+
+<h1>Communication Style Challenge</h1>
+
+<p>
+Discover your communication style through a fully interactive and gamified assessment experience.
+Complete all 24 questions, unlock achievements, earn XP, and explore your communication profile.
+</p>
+
+<div class="features">
+
+<div class="feature">
+<h3>24 Questions</h3>
+<p>Interactive Communication Assessment</p>
+</div>
+
+<div class="feature">
+<h3>XP & Levels</h3>
+<p>Gamified Learning Experience</p>
+</div>
+
+<div class="feature">
+<h3>Achievement Badges</h3>
+<p>Unlock Communication Milestones</p>
+</div>
+
+<div class="feature">
+<h3>Deep Analysis</h3>
+<p>Professional Communication Insights</p>
+</div>
+
+</div>
+
+<button class="start-btn" onclick="startQuiz()">
+Start Assessment
+</button>
+
+<footer>
+© 2026 Skills Bank · skillsbankme.com
+</footer>
+
+</div>
+
+<div class="glass quiz-screen" id="quiz">
+
+<div class="top">
+
+<div style="flex:1;">
+
+<h2 id="counter">
+Question 1 of 24
+</h2>
+
+<div class="progress">
+<div class="fill" id="fill"></div>
+</div>
+
+</div>
+
+<div class="stats">
+
+<div class="pill">
+XP: <span id="xp">0</span>
+</div>
+
+<div class="pill">
+Level <span id="level">1</span>
+</div>
+
+</div>
+
+</div>
+
+<div class="question" id="question"></div>
+
+<div class="answers" id="answers"></div>
+
+<footer>
+© 2026 Skills Bank · skillsbankme.com
+</footer>
+
+</div>
+
+<div class="glass result-screen" id="result">
+
+<h1 class="result-title">
+📊 Communication Profile
+</h1>
+
+<div class="dominant" id="dominant">
+🏆 WIN-WIN COMMUNICATOR
+</div>
+
+<canvas id="chart"></canvas>
+
+<div class="score-grid">
+
+<div class="score-card">
+<h3>Aggressive</h3>
+<h2 id="aggressive">0</h2>
+</div>
+
+<div class="score-card">
+<h3>Avoiding</h3>
+<h2 id="avoiding">0</h2>
+</div>
+
+<div class="score-card">
+<h3>Accommodating</h3>
+<h2 id="accommodating">0</h2>
+</div>
+
+<div class="score-card">
+<h3>Collaborative</h3>
+<h2 id="collaborative">0</h2>
+</div>
+
+</div>
+
+<div class="analysis">
+
+<h2>🧠 Communication Analysis</h2>
+
+<p id="analysisText"></p>
+
+<h3 style="margin-top:30px;">
+🔥 Personalized Improvement Ideas
+</h3>
+
+<div class="tips" id="tips"></div>
+
+</div>
+
+<footer>
+© 2026 Skills Bank · skillsbankme.com
+</footer>
+
+</div>
+
+</div>
+
+<script>
+
+const questions = [];
+
+for(let i=1;i<=24;i++){
+
+questions.push({
+
+question:`Question ${i}: Which communication behavior describes you most?`,
+
+answers:[
+{
+text:'Option A',
+type:'collaborative'
+},
+{
+text:'Option B',
+type:'aggressive'
+}
+]
+
+});
+
+}
+
+let current = 0;
+let xp = 0;
+let level = 1;
+
+const scores = {
+
+aggressive:0,
+avoiding:4,
+accommodating:7,
+collaborative:0
+
+};
+
+function startQuiz(){
+
+document.getElementById('intro').style.display='none';
+
+document.getElementById('quiz').style.display='block';
+
+loadQuestion();
+
+}
+
+function loadQuestion(){
+
+const q = questions[current];
+
+document.getElementById('counter').innerHTML =
+`Question ${current + 1} of 24`;
+
+document.getElementById('fill').style.width =
+((current / 24) * 100) + '%';
+
+document.getElementById('question').innerHTML =
+q.question;
+
+const answersContainer =
+document.getElementById('answers');
+
+answersContainer.innerHTML = '';
+
+q.answers.forEach(answer=>{
+
+const btn = document.createElement('button');
+
+btn.className = 'answer';
+
+btn.innerHTML = answer.text;
+
+btn.onclick = ()=>selectAnswer(answer.type);
+
+answersContainer.appendChild(btn);
+
+});
+
+}
+
+function selectAnswer(type){
+
+scores[type]++;
+
+xp += 100;
+
+if(xp >= 500) level = 2;
+if(xp >= 1200) level = 3;
+if(xp >= 1800) level = 4;
+
+document.getElementById('xp').innerHTML = xp;
+document.getElementById('level').innerHTML = level;
+
+if((current + 1) % 6 === 0){
+
+document.getElementById('badge').style.display='block';
+
+setTimeout(()=>{
+document.getElementById('badge').style.display='none';
+},2500);
+
+}
+
+current++;
+
+if(current < 24){
+
+loadQuestion();
+
+}else{
+
+showResult();
+
+}
+
+}
+
+function showResult(){
+
+document.getElementById('quiz').style.display='none';
+
+document.getElementById('result').style.display='block';
+
+document.getElementById('aggressive').innerHTML =
+scores.aggressive;
+
+document.getElementById('avoiding').innerHTML =
+scores.avoiding;
+
+document.getElementById('accommodating').innerHTML =
+scores.accommodating;
+
+document.getElementById('collaborative').innerHTML =
+scores.collaborative;
+
+const dominantType =
+Object.keys(scores).reduce((a,b)=>
+scores[a] > scores[b] ? a : b
+);
+
+const analysis = {
+
+aggressive:{
+title:'⚡ RESULTS DRIVER',
+text:'You are highly assertive, decisive, and focused on achieving outcomes quickly. You naturally take control during discussions and push conversations toward action. People often see you as confident and driven.',
+tips:[
+'Practice active listening before responding.',
+'Ask more open-ended questions.',
+'Balance assertiveness with empathy.',
+'Pause before reacting during conflict.'
+]
+},
+
+collaborative:{
+title:'🏆 WIN-WIN COMMUNICATOR',
+text:'You focus on mutual understanding, openness, and balanced communication. People often see you as emotionally intelligent, trustworthy, and highly effective at building relationships and creating psychologically safe environments.',
+tips:[
+'Continue building trust-based communication.',
+'Coach others during difficult conversations.',
+'Balance collaboration with faster decisions.',
+'Encourage quieter voices to participate.'
+]
+}
+
+};
+
+document.getElementById('dominant').innerHTML =
+analysis[dominantType].title;
+
+document.getElementById('analysisText').innerHTML =
+analysis[dominantType].text;
+
+const tipsContainer =
+document.getElementById('tips');
+
+tipsContainer.innerHTML='';
+
+analysis[dominantType].tips.forEach(t=>{
+
+const div = document.createElement('div');
+
+div.className='tip';
+
+div.innerHTML=t;
+
+tipsContainer.appendChild(div);
+
+});
+
+new Chart(document.getElementById('chart'),{
+
+type:'radar',
+
+data:{
+
+labels:[
+'Aggressive',
+'Avoiding',
+'Accommodating',
+'Collaborative'
+],
+
+datasets:[{
+
+label:'Your Profile',
+
+data:[
+scores.aggressive,
+scores.avoiding,
+scores.accommodating,
+scores.collaborative
+],
+
+borderWidth:3
+
+}]
+
+}
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
