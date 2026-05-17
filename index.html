@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Communication Style Challenge</title>
+<title>Communication Style Assessment | تقييم أسلوب التواصل</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -89,6 +88,7 @@ font-weight:700;
 border:none;
 border-radius:14px;
 background:linear-gradient(90deg,#00b4ff,#00ffd0);
+color:#00152a;
 cursor:pointer;
 transition:.3s;
 }
@@ -142,7 +142,7 @@ font-weight:700;
 }
 
 .question{
-font-size:30px;
+font-size:26px;
 line-height:1.8;
 margin:35px 0;
 font-weight:600;
@@ -155,7 +155,7 @@ gap:18px;
 
 .answer{
 background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.1);
+border:2px solid rgba(255,255,255,.1);
 padding:24px;
 border-radius:18px;
 color:white;
@@ -163,6 +163,7 @@ font-size:16px;
 text-align:left;
 cursor:pointer;
 transition:.3s;
+line-height:1.6;
 }
 
 .answer:hover{
@@ -264,6 +265,7 @@ font-size:14px;
 
 canvas{
 margin-top:30px;
+max-height:400px;
 }
 
 @media(max-width:768px){
@@ -273,11 +275,16 @@ font-size:36px;
 }
 
 .question{
-font-size:22px;
+font-size:20px;
 }
 
 .result-title{
 font-size:34px;
+}
+
+.answer{
+font-size:14px;
+padding:18px;
 }
 
 }
@@ -297,36 +304,36 @@ Communication Explorer Badge
 <div class="glass hero center" id="intro">
 
 <div class="logo">
-ATD-self-assessment-
+Communication Style Assessment
 </div>
 
-<h1>Communication Style Challenge</h1>
+<h1>Phillips Associates Communication Style Inventory</h1>
 
 <p>
-Discover your communication style through a fully interactive and gamified assessment experience.
-Complete all 24 questions, unlock achievements, earn XP, and explore your communication profile.
+Discover your communication style through this professional assessment based on the Phillips Associates Communication Style Inventory. 
+Complete all 24 questions to explore your communication profile across four key styles: Aggressive, Avoiding, Accommodating, and Collaborative.
 </p>
 
 <div class="features">
 
 <div class="feature">
 <h3>24 Questions</h3>
-<p>Interactive Communication Assessment</p>
+<p>Professional Assessment Tool</p>
 </div>
 
 <div class="feature">
-<h3>XP & Levels</h3>
-<p>Gamified Learning Experience</p>
+<h3>4 Communication Styles</h3>
+<p>Evidence-Based Framework</p>
 </div>
 
 <div class="feature">
-<h3>Achievement Badges</h3>
-<p>Unlock Communication Milestones</p>
+<h3>XP & Achievements</h3>
+<p>Gamified Experience</p>
 </div>
 
 <div class="feature">
 <h3>Deep Analysis</h3>
-<p>Professional Communication Insights</p>
+<p>Professional Insights & Tips</p>
 </div>
 
 </div>
@@ -336,7 +343,7 @@ Start Assessment
 </button>
 
 <footer>
-© 2026 Skills Bank · skillsbankme.com
+© 2026 Skills Bank · Based on Phillips Associates Communication Style Inventory
 </footer>
 
 </div>
@@ -384,11 +391,11 @@ Level <span id="level">1</span>
 <div class="glass result-screen" id="result">
 
 <h1 class="result-title">
-📊 Communication Profile
+📊 Your Communication Profile
 </h1>
 
 <div class="dominant" id="dominant">
-🏆 WIN-WIN COMMUNICATOR
+🏆 COLLABORATIVE COMMUNICATOR
 </div>
 
 <canvas id="chart"></canvas>
@@ -398,21 +405,25 @@ Level <span id="level">1</span>
 <div class="score-card">
 <h3>Aggressive</h3>
 <h2 id="aggressive">0</h2>
+<p style="opacity:0.7;margin-top:8px;font-size:14px;">Win/Lose</p>
 </div>
 
 <div class="score-card">
 <h3>Avoiding</h3>
 <h2 id="avoiding">0</h2>
+<p style="opacity:0.7;margin-top:8px;font-size:14px;">Lose/Lose</p>
 </div>
 
 <div class="score-card">
 <h3>Accommodating</h3>
 <h2 id="accommodating">0</h2>
+<p style="opacity:0.7;margin-top:8px;font-size:14px;">Lose/Win</p>
 </div>
 
 <div class="score-card">
 <h3>Collaborative</h3>
 <h2 id="collaborative">0</h2>
+<p style="opacity:0.7;margin-top:8px;font-size:14px;">Win/Win</p>
 </div>
 
 </div>
@@ -441,88 +452,214 @@ Level <span id="level">1</span>
 
 <script>
 
-const questions = [];
-
-for(let i=1;i<=24;i++){
-
-questions.push({
-
-question:`Question ${i}: Which communication behavior describes you most?`,
-
-answers:[
+const questions = [
 {
-text:'Option A',
-type:'collaborative'
+question: 'Question 1: How do you typically communicate during discussions of differences?',
+answers: [
+{ text: 'I try not to say anything that might create tension or disharmony during a discussion of differences.', type: 'avoiding' },
+{ text: 'I am usually open in providing others with information about their behavior and seek others\' opinions of me.', type: 'collaborative' }
+]
 },
 {
-text:'Option B',
-type:'aggressive'
-}
+question: 'Question 2: How do you share your needs with others?',
+answers: [
+{ text: 'I hesitate to share my wants and needs with others.', type: 'avoiding' },
+{ text: 'Sometimes I can give and receive information about behavior only when it is positive.', type: 'accommodating' }
 ]
-
-});
-
+},
+{
+question: 'Question 3: How do you respond to requests from others?',
+answers: [
+{ text: 'I sometimes agree to meet the requests of others and follow through even at my own expense.', type: 'accommodating' },
+{ text: 'I sometimes refuse to meet the requests of others.', type: 'aggressive' }
+]
+},
+{
+question: 'Question 4: How assertive are you in getting your requests met?',
+answers: [
+{ text: 'I always do everything I can to assure that my requests are met.', type: 'aggressive' },
+{ text: 'I usually am open in providing others with information about their behavior and seek others\' opinions of me.', type: 'collaborative' }
+]
+},
+{
+question: 'Question 5: How do you handle emotional discussions?',
+answers: [
+{ text: 'I always try to say things to soothe the other person\'s feelings during a discussion of differences.', type: 'accommodating' },
+{ text: 'I sometimes make a point to have my wants and needs taken care of.', type: 'aggressive' }
+]
+},
+{
+question: 'Question 6: Who takes charge in conversations?',
+answers: [
+{ text: 'In a conversation, I usually like to avoid having someone (myself or the other person) take charge.', type: 'avoiding' },
+{ text: 'I always agree to meet the requests of others if they fit with my own wants and needs.', type: 'collaborative' }
+]
+},
+{
+question: 'Question 7: How do you handle difficult topics?',
+answers: [
+{ text: 'In a discussion of differences, I sometimes attempt to change the subject.', type: 'avoiding' },
+{ text: 'I always agree to meet the requests of others and follow through even at my own expense.', type: 'accommodating' }
+]
+},
+{
+question: 'Question 8: How do you balance needs in discussions?',
+answers: [
+{ text: 'I usually try to say things to soothe the other person\'s feelings during a discussion of differences.', type: 'accommodating' },
+{ text: 'I usually agree to meet the requests of others if they fit with my own wants and needs.', type: 'collaborative' }
+]
+},
+{
+question: 'Question 9: How do you handle disagreements?',
+answers: [
+{ text: 'In a discussion of differences, I usually attempt to change the subject.', type: 'avoiding' },
+{ text: 'I sometimes refuse to meet the requests of others.', type: 'aggressive' }
+]
+},
+{
+question: 'Question 10: How comfortable are you sharing your needs?',
+answers: [
+{ text: 'I hesitate to share my wants and needs with others.', type: 'avoiding' },
+{ text: 'I prefer to give information to others about their behavior rather than receive it.', type: 'aggressive' }
+]
+},
+{
+question: 'Question 11: How do you prefer conversations to flow?',
+answers: [
+{ text: 'In a conversation, I usually like to have both people (myself and the other person) take charge.', type: 'collaborative' },
+{ text: 'I sometimes avoid getting involved in any unpleasant discussions.', type: 'avoiding' }
+]
+},
+{
+question: 'Question 12: How do you handle creating harmony?',
+answers: [
+{ text: 'I do everything I can to assure that my requests are met.', type: 'aggressive' },
+{ text: 'I try not to say anything that might create tension or disharmony during a discussion of differences.', type: 'avoiding' }
+]
+},
+{
+question: 'Question 13: Who directs your conversations?',
+answers: [
+{ text: 'In a conversation, I like to take charge.', type: 'aggressive' },
+{ text: 'In a conversation, I like to avoid having someone (myself or the other person) take charge.', type: 'avoiding' }
+]
+},
+{
+question: 'Question 14: How do you prioritize needs in communication?',
+answers: [
+{ text: 'I always try to take care of others\' wants and needs even if mine aren\'t taken care of.', type: 'accommodating' },
+{ text: 'I usually am open in providing others with information about their behavior and seek others\' opinions of me.', type: 'collaborative' }
+]
+},
+{
+question: 'Question 15: How do you handle concerns in discussions?',
+answers: [
+{ text: 'During a discussion of differences, I always attempt to deal with the other person\'s concerns as well as my own.', type: 'collaborative' },
+{ text: 'I sometimes hesitate to share my wants and needs with others.', type: 'avoiding' }
+]
+},
+{
+question: 'Question 16: How do you handle feedback?',
+answers: [
+{ text: 'I always prefer to give information to others about their behavior rather than receive it.', type: 'aggressive' },
+{ text: 'In a conversation, I sometimes like to have the other person take charge.', type: 'accommodating' }
+]
+},
+{
+question: 'Question 17: How hard do you push for your point?',
+answers: [
+{ text: 'I make every effort to get my point accepted.', type: 'aggressive' },
+{ text: 'I usually am open in providing others with information about their behavior and seek others\' opinions of me.', type: 'collaborative' }
+]
+},
+{
+question: 'Question 18: How do you handle controversial topics?',
+answers: [
+{ text: 'In a conversation, I sometimes like to have the other person take charge.', type: 'accommodating' },
+{ text: 'When involved in a discussion, I always try not to say or attend to anything controversial.', type: 'avoiding' }
+]
+},
+{
+question: 'Question 19: How do you manage discussion dynamics?',
+answers: [
+{ text: 'In a conversation, I always like to have both people (myself and the other person) take charge.', type: 'collaborative' },
+{ text: 'I usually try to say things to soothe the other person\'s feelings during a discussion of differences.', type: 'accommodating' }
+]
+},
+{
+question: 'Question 20: How flexible are you with requests?',
+answers: [
+{ text: 'I always agree to meet the requests of others if they fit with my own wants and needs.', type: 'collaborative' },
+{ text: 'I sometimes make a point to have my wants and needs taken care of.', type: 'aggressive' }
+]
+},
+{
+question: 'Question 21: How do you address mutual concerns?',
+answers: [
+{ text: 'I always attempt to deal with the other person\'s concerns as well as my own during a discussion of differences.', type: 'collaborative' },
+{ text: 'I sometimes try to say things to soothe the other person\'s feelings during a discussion of differences.', type: 'accommodating' }
+]
+},
+{
+question: 'Question 22: How do you handle positive vs. negative feedback?',
+answers: [
+{ text: 'I can give and receive information about behavior only when it is positive.', type: 'accommodating' },
+{ text: 'I sometimes agree to meet others\' requests and then don\'t follow through.', type: 'avoiding' }
+]
+},
+{
+question: 'Question 23: What is your feedback preference?',
+answers: [
+{ text: 'I prefer to give information to others about their behavior rather than receive it.', type: 'aggressive' },
+{ text: 'I sometimes can give and receive information about behavior only when it is positive.', type: 'accommodating' }
+]
+},
+{
+question: 'Question 24: How do you manage conversational control?',
+answers: [
+{ text: 'In a conversation, I sometimes like to have both people (myself and the other person) take charge.', type: 'collaborative' },
+{ text: 'I sometimes make a point to have my wants and needs taken care of.', type: 'aggressive' }
+]
 }
+];
 
 let current = 0;
 let xp = 0;
 let level = 1;
 
 const scores = {
-
-aggressive:0,
-avoiding:4,
-accommodating:7,
-collaborative:0
-
+aggressive: 0,
+avoiding: 0,
+accommodating: 0,
+collaborative: 0
 };
 
 function startQuiz(){
-
 document.getElementById('intro').style.display='none';
-
 document.getElementById('quiz').style.display='block';
-
 loadQuestion();
-
 }
 
 function loadQuestion(){
-
 const q = questions[current];
 
-document.getElementById('counter').innerHTML =
-`Question ${current + 1} of 24`;
+document.getElementById('counter').innerHTML = `Question ${current + 1} of 24`;
+document.getElementById('fill').style.width = ((current / 24) * 100) + '%';
+document.getElementById('question').innerHTML = q.question;
 
-document.getElementById('fill').style.width =
-((current / 24) * 100) + '%';
-
-document.getElementById('question').innerHTML =
-q.question;
-
-const answersContainer =
-document.getElementById('answers');
-
+const answersContainer = document.getElementById('answers');
 answersContainer.innerHTML = '';
 
-q.answers.forEach(answer=>{
-
+q.answers.forEach(answer => {
 const btn = document.createElement('button');
-
 btn.className = 'answer';
-
 btn.innerHTML = answer.text;
-
-btn.onclick = ()=>selectAnswer(answer.type);
-
+btn.onclick = () => selectAnswer(answer.type);
 answersContainer.appendChild(btn);
-
 });
-
 }
 
 function selectAnswer(type){
-
 scores[type]++;
 
 xp += 100;
@@ -535,133 +672,151 @@ document.getElementById('xp').innerHTML = xp;
 document.getElementById('level').innerHTML = level;
 
 if((current + 1) % 6 === 0){
-
 document.getElementById('badge').style.display='block';
-
-setTimeout(()=>{
+setTimeout(() => {
 document.getElementById('badge').style.display='none';
-},2500);
-
+}, 2500);
 }
 
 current++;
 
 if(current < 24){
-
 loadQuestion();
-
-}else{
-
+} else {
 showResult();
-
 }
-
 }
 
 function showResult(){
-
 document.getElementById('quiz').style.display='none';
-
 document.getElementById('result').style.display='block';
 
-document.getElementById('aggressive').innerHTML =
-scores.aggressive;
+document.getElementById('aggressive').innerHTML = scores.aggressive;
+document.getElementById('avoiding').innerHTML = scores.avoiding;
+document.getElementById('accommodating').innerHTML = scores.accommodating;
+document.getElementById('collaborative').innerHTML = scores.collaborative;
 
-document.getElementById('avoiding').innerHTML =
-scores.avoiding;
-
-document.getElementById('accommodating').innerHTML =
-scores.accommodating;
-
-document.getElementById('collaborative').innerHTML =
-scores.collaborative;
-
-const dominantType =
-Object.keys(scores).reduce((a,b)=>
+const dominantType = Object.keys(scores).reduce((a, b) => 
 scores[a] > scores[b] ? a : b
 );
 
 const analysis = {
-
-aggressive:{
-title:'⚡ RESULTS DRIVER',
-text:'You are highly assertive, decisive, and focused on achieving outcomes quickly. You naturally take control during discussions and push conversations toward action. People often see you as confident and driven.',
-tips:[
-'Practice active listening before responding.',
-'Ask more open-ended questions.',
-'Balance assertiveness with empathy.',
-'Pause before reacting during conflict.'
+aggressive: {
+title: '⚡ RESULTS DRIVER',
+text: 'You are highly assertive, decisive, and focused on achieving outcomes quickly. You naturally take control during discussions and push conversations toward action. People often see you as confident and driven. This is a "Win/Lose" communication style where you pursue your own concerns at the other person\'s expense.',
+tips: [
+'Practice active listening before responding',
+'Ask more open-ended questions to understand others\' perspectives',
+'Balance assertiveness with empathy',
+'Pause before reacting during conflict',
+'Consider how your communication impacts others\' feelings'
 ]
 },
 
-collaborative:{
-title:'🏆 WIN-WIN COMMUNICATOR',
-text:'You focus on mutual understanding, openness, and balanced communication. People often see you as emotionally intelligent, trustworthy, and highly effective at building relationships and creating psychologically safe environments.',
-tips:[
-'Continue building trust-based communication.',
-'Coach others during difficult conversations.',
-'Balance collaboration with faster decisions.',
-'Encourage quieter voices to participate.'
+avoiding: {
+title: '🔇 CONFLICT AVOIDER',
+text: 'You tend to sidestep difficult conversations and prefer to keep the peace by not engaging with controversial topics. This is a "Lose/Lose" communication style where neither you nor the other person gets their needs met. While this can prevent short-term conflict, it often leads to unresolved issues.',
+tips: [
+'Set specific dates for difficult conversations instead of postponing',
+'Practice what you want to say with a trusted friend',
+'Recognize that avoiding issues doesn\'t make them disappear',
+'Start with small, low-stakes conversations to build confidence',
+'Remember that honest communication builds stronger relationships'
+]
+},
+
+accommodating: {
+title: '🤝 PEOPLE PLEASER',
+text: 'You prioritize others\' needs over your own and often sacrifice your own wants to maintain harmony. This is a "Lose/Win" communication style. While you excel at maintaining relationships and showing care for others, you may end up feeling resentful when your own needs are consistently unmet.',
+tips: [
+'Practice saying "no" to requests that don\'t align with your priorities',
+'Recognize that your needs matter just as much as others\'',
+'Set healthy boundaries in relationships',
+'Read about assertiveness or take an assertiveness training course',
+'Balance giving to others with taking care of yourself'
+]
+},
+
+collaborative: {
+title: '🏆 WIN-WIN COMMUNICATOR',
+text: 'You focus on mutual understanding, openness, and balanced communication. This is a "Win/Win" communication style where you pursue your own concerns while being equally interested in the other person\'s concerns. People often see you as emotionally intelligent, trustworthy, and highly effective at building relationships and creating psychologically safe environments.',
+tips: [
+'Continue building trust-based communication',
+'Coach others in collaborative communication techniques',
+'Balance collaboration with making timely decisions',
+'Encourage quieter voices to participate in discussions',
+'Recognize when other styles may be more appropriate'
 ]
 }
-
 };
 
-document.getElementById('dominant').innerHTML =
-analysis[dominantType].title;
+const styleInfo = analysis[dominantType];
 
-document.getElementById('analysisText').innerHTML =
-analysis[dominantType].text;
+document.getElementById('dominant').innerHTML = styleInfo.title;
+document.getElementById('analysisText').innerHTML = styleInfo.text;
 
-const tipsContainer =
-document.getElementById('tips');
+const tipsContainer = document.getElementById('tips');
+tipsContainer.innerHTML = '';
 
-tipsContainer.innerHTML='';
-
-analysis[dominantType].tips.forEach(t=>{
-
+styleInfo.tips.forEach(tip => {
 const div = document.createElement('div');
-
-div.className='tip';
-
-div.innerHTML=t;
-
+div.className = 'tip';
+div.innerHTML = tip;
 tipsContainer.appendChild(div);
-
 });
 
-new Chart(document.getElementById('chart'),{
-
-type:'radar',
-
-data:{
-
-labels:[
-'Aggressive',
-'Avoiding',
-'Accommodating',
-'Collaborative'
-],
-
-datasets:[{
-
-label:'Your Profile',
-
-data:[
+new Chart(document.getElementById('chart'), {
+type: 'radar',
+data: {
+labels: ['Aggressive\n(Win/Lose)', 'Avoiding\n(Lose/Lose)', 'Accommodating\n(Lose/Win)', 'Collaborative\n(Win/Win)'],
+datasets: [{
+label: 'Your Communication Profile',
+data: [
 scores.aggressive,
 scores.avoiding,
 scores.accommodating,
 scores.collaborative
 ],
-
-borderWidth:3
-
+borderColor: 'rgba(0, 195, 255, 1)',
+backgroundColor: 'rgba(0, 195, 255, 0.2)',
+borderWidth: 3,
+pointBackgroundColor: 'rgba(0, 255, 208, 1)',
+pointBorderColor: '#fff',
+pointRadius: 5
 }]
-
+},
+options: {
+scales: {
+r: {
+beginAtZero: true,
+max: 12,
+ticks: {
+stepSize: 2,
+color: 'rgba(255, 255, 255, 0.7)'
+},
+grid: {
+color: 'rgba(255, 255, 255, 0.1)'
+},
+pointLabels: {
+color: 'rgba(255, 255, 255, 0.9)',
+font: {
+size: 14
 }
-
+}
+}
+},
+plugins: {
+legend: {
+labels: {
+color: 'rgba(255, 255, 255, 0.9)',
+font: {
+size: 14
+}
+}
+}
+}
+}
 });
-
 }
 
 </script>
